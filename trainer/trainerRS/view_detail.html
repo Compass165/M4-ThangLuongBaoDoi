@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--<head th:replace="/blog/layout::head">-->
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<a href="/create-blog">Create new blog</a><br/><br/>
+<a href="/categories">Category List</a>
+<h1>My blog</h1>
+<table id="blogs" border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Date of birth</th>
+    <th>Address</th>
+    <th>View</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <th:block th:each="trainer : ${trainers}">
+    <tr>
+      <td th:text="${trainer.id}"></td>
+      <td th:text="${trainer.name}"></td>
+      <td th:text="${trainer.dateOfBirth}"></td>
+      <td th:text="${trainer.address}"></td>
+      <td><a th:href="@{/__${trainer.id}__ }">Edit</a></td>
+      <td><a th:href="@{/edit/__${trainer.id}__ }">Edit</a></td>
+      <td><a th:href="@{/delete/__${trainer.id}__ }">Delete</a></td>
+    </tr>
+  </th:block>
+</table>
+<div>
+  <a th:href="@{'/trainer/page'(page=${trainers.number - 1})}" th:if="${trainers.hasPrevious()}">Previous</a>
+  <span th:text="${trainers.number + 1}"></span>/<span th:text="${trainers.totalPages}"></span>
+  <a th:href="@{'/trainer/page'(page=${trainers.number + 1})}" th:if="${trainers.hasNext()}">Next</a>
+</div>
+<!--<footer th:replace="/blog/layout :: footer"></footer>-->
+</body>
+</html>
